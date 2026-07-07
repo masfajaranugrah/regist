@@ -14,6 +14,11 @@
         .step-pill {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        .pill-progress-segment {
+            height: 6px;
+            border-radius: 9999px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
         .social-card {
             transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
         }
@@ -127,21 +132,28 @@
 <body class="bg-background text-on-surface font-body-lg min-h-screen flex flex-col">
 <!-- Top Navigation Bar -->
 <header class="w-full top-0 sticky bg-surface dark:bg-surface-dim z-50 flex items-center justify-between px-margin-mobile h-16 w-full">
-    <a href="/step-2" class="text-primary hover:bg-secondary-container/50 transition-colors p-2 rounded-full active:scale-95 duration-150 flex items-center justify-center">
-        <span class="material-symbols-outlined">arrow_back</span>
-    </a>
-    <h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Registration</h1>
-    <div class="w-10"></div> <!-- Spacer for centering -->
+    <div class="flex items-center gap-4">
+        <a href="/step-3" class="text-primary hover:bg-secondary-container/50 transition-colors p-2 rounded-full active:scale-95 duration-150 flex items-center justify-center">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </a>
+        <h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Registration</h1>
+    </div>
+    <div class="flex items-center">
+        <div class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm">
+            Step 4 of 5
+        </div>
+    </div>
 </header>
 <main class="flex-grow px-margin-mobile pt-stack-md pb-stack-lg max-w-md mx-auto w-full">
     <!-- Progress Indicator -->
-    <div class="flex gap-2 mb-stack-lg">
-        <div class="h-2 flex-grow rounded-full bg-primary"></div>
-        <div class="h-2 flex-grow rounded-full bg-primary"></div>
-        <div class="h-2 flex-grow rounded-full bg-primary relative overflow-hidden">
-            <div class="absolute inset-0 bg-white/30 animate-pulse"></div>
+    <div class="mt-2 mb-stack-lg space-y-stack-sm w-full">
+        <div class="flex gap-2 w-full">
+            <div class="pill-progress-segment bg-primary flex-1"></div>
+            <div class="pill-progress-segment bg-primary flex-1"></div>
+            <div class="pill-progress-segment bg-primary flex-1"></div>
+            <div class="pill-progress-segment bg-primary flex-[1.5] shadow-sm"></div>
+            <div class="pill-progress-segment bg-secondary-container/50 flex-1"></div>
         </div>
-        <div class="h-2 flex-grow rounded-full bg-secondary-container"></div>
     </div>
     <!-- Instruction Section -->
     <div class="text-center mb-stack-lg">

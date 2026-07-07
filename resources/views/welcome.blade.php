@@ -144,13 +144,14 @@
         <h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">Registration</h1>
     </div>
     <div class="flex items-center">
-        <span class="font-label-md text-on-surface-variant bg-surface-container-high px-3 py-1 rounded-full text-xs">Step 1 of 4</span>
+        <span class="font-label-md text-on-surface-variant bg-surface-container-high px-3 py-1 rounded-full text-xs">Step 1 of 5</span>
     </div>
 </header>
 <!-- Progress Indicator -->
-<div class="px-margin-mobile mt-6 space-y-stack-sm">
+<div class="px-margin-mobile mt-6 space-y-stack-sm max-w-md mx-auto w-full">
     <div class="flex gap-2 w-full">
         <div class="pill-progress-segment bg-primary flex-[1.5] shadow-sm"></div>
+        <div class="pill-progress-segment bg-secondary-container/50 flex-1"></div>
         <div class="pill-progress-segment bg-secondary-container/50 flex-1"></div>
         <div class="pill-progress-segment bg-secondary-container/50 flex-1"></div>
         <div class="pill-progress-segment bg-secondary-container/50 flex-1"></div>

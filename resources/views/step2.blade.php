@@ -127,6 +127,11 @@
             background: radial-gradient(circle at top right, rgba(0, 104, 95, 0.05), transparent 40%),
                         radial-gradient(circle at bottom left, rgba(0, 104, 95, 0.03), transparent 30%);
         }
+        .pill-progress-segment {
+            height: 6px;
+            border-radius: 9999px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
         
         body {
           min-height: max(884px, 100dvh);
@@ -137,25 +142,28 @@
 <!-- TopAppBar from JSON -->
 <header class="w-full top-0 sticky z-40 bg-surface dark:bg-surface-dim flex items-center justify-between px-margin-mobile h-16 w-full">
     <div class="flex items-center gap-4">
-        <a href="/" class="flex items-center justify-center p-2 rounded-full hover:bg-secondary-container/50 transition-colors active:scale-95 duration-150 text-primary dark:text-primary-fixed">
+        <a href="/step-2" class="flex items-center justify-center p-2 rounded-full hover:bg-secondary-container/50 transition-colors active:scale-95 duration-150 text-primary dark:text-primary-fixed">
             <span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
         </a>
         <h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Registration</h1>
     </div>
     <div class="flex items-center">
         <div class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm">
-            Step 2 of 4
+            Step 3 of 5
         </div>
     </div>
 </header>
-<main class="flex-grow flex flex-col relative ambient-glow px-margin-mobile pb-32">
+<main class="flex-grow flex flex-col relative ambient-glow px-margin-mobile pb-32 max-w-md mx-auto w-full">
     <!-- Progress Bar -->
-    <section class="mt-stack-md flex gap-2">
-        <div class="h-1.5 flex-1 rounded-full bg-primary"></div>
-        <div class="h-1.5 flex-1 rounded-full bg-primary"></div>
-        <div class="h-1.5 flex-1 rounded-full bg-secondary-fixed"></div>
-        <div class="h-1.5 flex-1 rounded-full bg-secondary-fixed"></div>
-    </section>
+    <div class="mt-6 space-y-stack-sm w-full">
+        <div class="flex gap-2 w-full">
+            <div class="pill-progress-segment bg-primary flex-1"></div>
+            <div class="pill-progress-segment bg-primary flex-1"></div>
+            <div class="pill-progress-segment bg-primary flex-[1.5] shadow-sm"></div>
+            <div class="pill-progress-segment bg-secondary-container/50 flex-1"></div>
+            <div class="pill-progress-segment bg-secondary-container/50 flex-1"></div>
+        </div>
+    </div>
     <!-- Form Intro -->
     <section class="mt-stack-lg">
         <h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Informasi Pribadi</h2>
@@ -212,11 +220,13 @@
     </div>
 </main>
 <!-- Fixed Bottom Action Area -->
-<div class="fixed bottom-0 left-0 w-full bg-surface/80 backdrop-blur-md px-margin-mobile pt-4 pb-10 z-30">
-    <button class="w-full h-14 bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-[0px_10px_20px_rgba(0,106,97,0.15)] flex items-center justify-center gap-2 active:scale-95 transition-transform" id="nextBtn">
-        Selanjutnya
-        <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
-    </button>
+<div class="fixed bottom-0 left-0 w-full bg-surface/80 backdrop-blur-md z-30 border-t border-outline-variant/10">
+    <div class="max-w-md mx-auto px-margin-mobile pt-4 pb-10">
+        <button class="w-full h-14 bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-[0px_10px_20px_rgba(0,106,97,0.15)] flex items-center justify-center gap-2 active:scale-95 transition-transform" id="nextBtn">
+            Selanjutnya
+            <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+        </button>
+    </div>
 </div>
 <!-- BottomNavBar from JSON (Filtering: This is a task-focused sub-page, but showing Help/Support as per JSON intent) -->
 <!-- Suppression Logic: Suppressing standard nav to prioritize transactional flow, but keeping buttons for context -->
@@ -280,8 +290,8 @@
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    console.log('Navigating to step 3...');
-                    window.location.href = '/step-3';
+                    console.log('Navigating to step 4...');
+                    window.location.href = '/step-4';
                 } else {
                     alert('Terjadi kesalahan: ' + (data.error || 'Silakan coba lagi.'));
                     nextBtn.disabled = false;
