@@ -84,25 +84,10 @@
             Terima kasih telah bergabung. Akun Anda telah siap digunakan untuk mengeksplorasi layanan kami dengan tenang dan percaya diri.
         </p>
     </div>
-    <!-- Detail Card -->
-    <div class="w-full max-w-sm bg-surface-container-low rounded-xl p-stack-md border border-outline-variant/30 mb-stack-lg">
-        <div class="flex items-center gap-gutter-md">
-            <div class="w-12 h-12 rounded-lg bg-surface-container-highest overflow-hidden">
-                <div class="w-full h-full bg-cover bg-center" data-alt="A high-quality, professional headshot of a friendly customer service representative with a warm smile, set against a clean, minimalist studio background with soft teal and white lighting. The atmosphere is professional, approachable, and human-centric." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAhGw7U3Cr-ONnM_J-dreAeZjWCZLxHaihroFAyNguz5taoM1GtyT5tRn9nCjd23JDZY5_smQCT9HaH31Hla1dL_7li2hdQLYnKqbJvT-d7kOt6JosLKFn1pliI0aJFY0FcjK4dND-2NHQh3CtOnshtMhVThEHIF_20v8X-8Gp4m02oPtfDFp-sQauNmT9RWLV04fLWaYTZZ6wYkkfhSMO77C-mLAK9H2nEeAevcaS8IXoCmhi-lax75g')"></div>
-            </div>
-            <div class="text-left">
-                <p class="font-label-md text-label-md text-on-surface">Pemandu Anda</p>
-                <p class="font-body-sm text-body-sm text-on-surface-variant">Siap membantu perjalanan Anda.</p>
-            </div>
-        </div>
-    </div>
     <!-- Action Buttons -->
     <div class="w-full max-w-sm flex flex-col gap-stack-md">
         <a href="/" class="w-full h-[56px] bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-[0px_10px_20px_rgba(13,148,136,0.15)] active:scale-95 transition-all duration-200 flex items-center justify-center">
             Ke Beranda
-        </a>
-        <a href="/" class="w-full h-[56px] bg-transparent text-primary border border-primary font-label-md text-label-md rounded-lg active:scale-95 transition-all duration-200 flex items-center justify-center">
-            Lihat Profil Saya
         </a>
     </div>
 </main>
