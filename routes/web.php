@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,11 +31,17 @@ Route::post('/register/step-2', [RegistrationController::class, 'storeStep2'])->
 Route::post('/register/upload-proof', [RegistrationController::class, 'uploadProof'])->name('register.upload-proof');
 Route::get('/register/finish', [RegistrationController::class, 'finish'])->name('register.finish');
 
-// Dashboard Actions
-Route::get('/dashboard', [RegistrationController::class, 'dashboardOverview'])->name('dashboard.overview');
-Route::get('/dashboard/export-excel', [RegistrationController::class, 'exportExcel'])->name('dashboard.export-excel');
+// Authentication Routes
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/dashboard/registrations', [RegistrationController::class, 'dashboardIndex'])->name('dashboard.registrations');
-Route::patch('/dashboard/registrations/{id}/status', [RegistrationController::class, 'updateStatus'])->name('dashboard.registrations.update-status');
-Route::delete('/dashboard/registrations/{id}', [RegistrationController::class, 'destroy'])->name('dashboard.registrations.destroy');
+// Dashboard Actions (Protected by auth middleware)
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [RegistrationController::class, 'dashboardOverview'])->name('dashboard.overview');
+    Route::get('/dashboard/export-excel', [RegistrationController::class, 'exportExcel'])->name('dashboard.export-excel');
+    Route::get('/dashboard/registrations', [RegistrationController::class, 'dashboardIndex'])->name('dashboard.registrations');
+    Route::patch('/dashboard/registrations/{id}/status', [RegistrationController::class, 'updateStatus'])->name('dashboard.registrations.update-status');
+    Route::delete('/dashboard/registrations/{id}', [RegistrationController::class, 'destroy'])->name('dashboard.registrations.destroy');
+});
 

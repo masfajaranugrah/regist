@@ -61,7 +61,13 @@
     </div>
     <!-- Card Section -->
     <div class="serene-glass rounded-xl p-8 md:p-10 shadow-serene w-full">
-        <form class="space-y-stack-md" id="loginForm">
+        <!-- Error Alert -->
+        <div id="errorAlert" class="hidden mb-4 p-4 bg-error-container text-on-error-container border border-error/20 rounded-lg text-body-sm flex items-center gap-2">
+            <span class="material-symbols-outlined text-[20px]">error</span>
+            <span id="errorMessage"></span>
+        </div>
+        <form class="space-y-stack-md" id="loginForm" method="POST" action="/login">
+            @csrf
             <!-- Email Field -->
             <div class="space-y-2">
                 <label class="text-label-md font-label-md text-on-surface" for="email">Email Address</label>
@@ -131,24 +137,52 @@
 
     document.getElementById('loginForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        const btn = e.target.querySelector('button[type="submit"]');
+        const form = e.target;
+        const btn = form.querySelector('button[type="submit"]');
         const originalContent = btn.innerHTML;
+        const errorAlert = document.getElementById('errorAlert');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        // Reset alert
+        errorAlert.classList.add('hidden');
         
         // Interaction Feedback
         btn.disabled = true;
         btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Authenticating...';
         
-        setTimeout(() => {
-            btn.classList.add('bg-primary-container');
-            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Welcome back';
+        const formData = new FormData(form);
+        
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(err => { throw err; });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                btn.classList.add('bg-primary-container');
+                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Welcome back';
+                setTimeout(() => {
+                    window.location.href = data.redirect || '/dashboard';
+                }, 1000);
+            } else {
+                throw new Error(data.message || 'Login failed');
+            }
+        })
+        .catch(err => {
+            btn.innerHTML = originalContent;
+            btn.disabled = false;
             
-            // Redirect to dashboard
-            setTimeout(() => {
-                btn.innerHTML = originalContent;
-                btn.disabled = false;
-                window.location.href = '/dashboard';
-            }, 1000);
-        }, 1500);
+            errorMessage.textContent = err.message || 'Email atau password salah.';
+            errorAlert.classList.remove('hidden');
+        });
     });
 </script>
 </body>

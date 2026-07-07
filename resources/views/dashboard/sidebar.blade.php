@@ -15,6 +15,14 @@
             <span class="material-symbols-outlined {{ request()->is('dashboard/registrations') ? '' : 'group-hover:text-primary' }}" style="font-variation-settings: 'FILL' 1;">how_to_reg</span>
             <span class="text-label-md font-label-md">Registrations</span>
         </a>
+        <!-- Logout -->
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+            @csrf
+        </form>
+        <a class="flex items-center gap-3 px-4 py-3 text-error hover:bg-error/10 dark:hover:bg-error/20 rounded-lg transition-all duration-200 active:scale-95 group cursor-pointer" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <span class="material-symbols-outlined group-hover:text-error">logout</span>
+            <span class="text-label-md font-label-md">Logout</span>
+        </a>
     </nav>
     <div class="mt-auto pt-6 border-t border-secondary-container/30 flex items-center gap-3 px-4">
         <img class="w-10 h-10 rounded-full object-cover" data-alt="A professional headshot of a female administrator with a friendly, confident expression, set against a blurred modern office background with soft teal accents. High-end lighting creates a polished, premium look consistent with a corporate dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2R3xW6LsltnyngBk-zHJwck5CzM11auEGtj7fnAydOxuH8bhE6jl9N89BZUDjJdJXuDDW7F29gng1z3AUqitjdrUtQvU1Y6_y7lf6n6ZR35VacE1vfxq8ftPxopP9njeQWhHCOCncODFH4dQAjynJ9DbCMcKrPsoceVzyJa6B5EPfy2jT4mu_X4252yb_xenzswkk286so1PkGBF1HF15luHnCDNk9ueqSFyTFJLN-bXA5fwrfMZSnw"/>
