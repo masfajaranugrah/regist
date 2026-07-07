@@ -105,8 +105,62 @@ class RegistrationController extends \Illuminate\Routing\Controller
         $extension = $file->getClientOriginalExtension();
         $filename = 'proof_' . $regId . '_' . $request->platform . '_' . time() . '.' . $extension;
 
-        // Save to public/uploads directory directly
-        $file->move(public_path('uploads'), $filename);
+        // Detect correct uploads directory.
+        // On shared hosting, Laravel's public_path() might point to a folder that is different
+        // from the actual server document root (e.g. public vs public_html).
+        $uploadPath = null;
+        $possiblePaths = [];
+
+        if (!empty($_SERVER['DOCUMENT_ROOT'])) {
+            $possiblePaths[] = rtrim($_SERVER['DOCUMENT_ROOT'], '/\\') . '/uploads';
+        }
+        $possiblePaths[] = rtrim(public_path(), '/\\') . '/uploads';
+        $possiblePaths[] = base_path('public_html/uploads');
+        $possiblePaths[] = base_path('public/uploads');
+
+        $possiblePaths = array_values(array_unique($possiblePaths));
+
+        foreach ($possiblePaths as $path) {
+            if (file_exists($path)) {
+                if (is_writable($path)) {
+                    $uploadPath = $path;
+                    break;
+                }
+            } else {
+                $parent = dirname($path);
+                if (file_exists($parent) && is_writable($parent)) {
+                    $uploadPath = $path;
+                    break;
+                }
+            }
+        }
+
+        // Fallback to first path if no writable path found
+        if (!$uploadPath) {
+            $uploadPath = $possiblePaths[0];
+        }
+
+        try {
+            if (!file_exists($uploadPath)) {
+                if (!@mkdir($uploadPath, 0777, true) && !is_dir($uploadPath)) {
+                    throw new \RuntimeException(sprintf('Directory "%s" was not created. Please check parent folder permissions.', $uploadPath));
+                }
+                @chmod($uploadPath, 0777);
+            } else {
+                @chmod($uploadPath, 0777);
+            }
+
+            if (!is_writable($uploadPath)) {
+                throw new \RuntimeException(sprintf('Directory "%s" is not writable. Please change permission to 775 or 777.', $uploadPath));
+            }
+
+            $file->move($uploadPath, $filename);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Gagal menyimpan file di server. Detail: ' . $e->getMessage() . 
+                           ' (Tip: Pastikan folder uploads di root public/ atau public_html/ memiliki write permission/chmod 775 atau 777).'
+            ], 500);
+        }
         $publicPath = '/uploads/' . $filename;
 
         // Map platform to database column
@@ -310,7 +364,7 @@ class RegistrationController extends \Illuminate\Routing\Controller
             $fields = ['tiktok_creative', 'tiktok_jernih', 'ig_creative', 'ig_jernih', 'google_review'];
             foreach ($fields as $field) {
                 if ($registration->$field) {
-                    $filePath = public_path($registration->$field);
+                    $filePath = $this->getUploadAbsolutePath($registration->$field);
                     if (file_exists($filePath)) {
                         @unlink($filePath);
                     }
@@ -320,6 +374,33 @@ class RegistrationController extends \Illuminate\Routing\Controller
         }
 
         return redirect()->route('dashboard.registrations')->with('success', 'Data registrasi berhasil dihapus.');
+    }
+
+    /**
+     * Get the absolute path for an uploaded file path.
+     */
+    private function getUploadAbsolutePath($relativePath)
+    {
+        $cleanRelativePath = ltrim($relativePath, '/\\');
+        
+        $possibleRoots = [];
+        if (!empty($_SERVER['DOCUMENT_ROOT'])) {
+            $possibleRoots[] = rtrim($_SERVER['DOCUMENT_ROOT'], '/\\');
+        }
+        $possibleRoots[] = rtrim(public_path(), '/\\');
+        $possibleRoots[] = base_path('public_html');
+        $possibleRoots[] = base_path('public');
+        
+        $possibleRoots = array_values(array_unique($possibleRoots));
+        
+        foreach ($possibleRoots as $root) {
+            $fullPath = $root . '/' . $cleanRelativePath;
+            if (file_exists($fullPath)) {
+                return $fullPath;
+            }
+        }
+        
+        return public_path($cleanRelativePath);
     }
 
     /**

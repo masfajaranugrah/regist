@@ -220,6 +220,57 @@
         'google-rating': false
     };
 
+    function compressImage(file, maxWidth, maxHeight, quality) {
+        return new Promise((resolve, reject) => {
+            if (!file.type.startsWith('image/')) {
+                return reject(new Error('File is not an image'));
+            }
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = event => {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height = Math.round((height * maxWidth) / width);
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width = Math.round((width * maxHeight) / height);
+                            height = maxHeight;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    canvas.toBlob(blob => {
+                        if (blob) {
+                            const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", {
+                                type: 'image/jpeg',
+                                lastModified: Date.now()
+                            });
+                            resolve(compressedFile);
+                        } else {
+                            reject(new Error('Canvas conversion returned empty blob'));
+                        }
+                    }, 'image/jpeg', quality);
+                };
+                img.onerror = err => reject(err);
+            };
+            reader.onerror = err => reject(err);
+        });
+    }
+
     function triggerUpload(platform) {
         document.getElementById(`file-${platform}`).click();
     }
@@ -231,27 +282,40 @@
             const label = document.getElementById(`upload-label-${platform}`);
             const btn = document.getElementById(`btn-${platform}`);
             
-            // Show uploading state
+            // Show compressing/uploading state
             iconContainer.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin text-primary">sync</span>';
-            label.innerText = 'Mengunggah...';
+            label.innerText = 'Mengompres...';
             label.classList.remove('text-green-600', 'text-red-600', 'font-bold');
             label.classList.add('text-on-surface-variant');
-            
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('platform', platform);
-            
-            fetch('/register/upload-proof', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: formData
-            })
-            .then(res => res.json())
-            .then(data => {
+
+            const processUpload = (fileToUpload) => {
+                label.innerText = 'Mengunggah...';
+                const formData = new FormData();
+                formData.append('file', fileToUpload);
+                formData.append('platform', platform);
+                
+                return fetch('/register/upload-proof', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: formData
+                });
+            };
+
+            const handleResponse = (res) => {
+                if (!res.ok) {
+                    return res.json().catch(() => {
+                        throw new Error('HTTP ' + res.status);
+                    }).then(data => {
+                        throw new Error(data.error || 'HTTP ' + res.status);
+                    });
+                }
+                return res.json();
+            };
+
+            const handleSuccess = (data) => {
                 if (data.success) {
-                    // Set green checkmark success state on the upload button
                     iconContainer.innerHTML = '<span class="material-symbols-outlined text-[18px] text-white">check</span>';
                     iconContainer.classList.remove('bg-primary/10', 'text-primary');
                     iconContainer.classList.add('bg-green-500');
@@ -260,7 +324,6 @@
                     label.classList.remove('text-on-surface-variant');
                     label.classList.add('text-green-600', 'font-bold');
 
-                    // Force mark this social item as toggled/followed
                     status[platform] = true;
                     
                     btn.classList.remove('border-outline-variant', 'border-red-500');
@@ -268,21 +331,35 @@
                     
                     updateFinishButton();
                 } else {
-                    iconContainer.innerHTML = '<span class="material-symbols-outlined text-[18px]">cloud_upload</span>';
-                    label.innerText = 'Gagal';
-                    label.classList.add('text-red-600', 'font-bold');
-                    btn.classList.add('border-red-500');
-                    alert('Gagal mengunggah file: ' + (data.error || 'Silakan coba lagi.'));
+                    showError(data.error || 'Silakan coba lagi.');
                 }
-            })
-            .catch(err => {
-                console.error(err);
+            };
+
+            const showError = (errorMessage) => {
                 iconContainer.innerHTML = '<span class="material-symbols-outlined text-[18px]">cloud_upload</span>';
                 label.innerText = 'Gagal';
                 label.classList.add('text-red-600', 'font-bold');
                 btn.classList.add('border-red-500');
-                alert('Gagal mengunggah file. Silakan coba lagi.');
-            });
+                alert('Gagal mengunggah file. Detail: ' + errorMessage);
+            };
+
+            // Compress if it is an image, otherwise fallback direct upload
+            if (file.type.startsWith('image/')) {
+                compressImage(file, 1200, 1200, 0.7)
+                    .then(compressedFile => processUpload(compressedFile))
+                    .catch(err => {
+                        console.warn('Compression failed, trying original file:', err);
+                        return processUpload(file);
+                    })
+                    .then(res => handleResponse(res))
+                    .then(data => handleSuccess(data))
+                    .catch(err => showError(err.message));
+            } else {
+                processUpload(file)
+                    .then(res => handleResponse(res))
+                    .then(data => handleSuccess(data))
+                    .catch(err => showError(err.message));
+            }
         }
     }
 
