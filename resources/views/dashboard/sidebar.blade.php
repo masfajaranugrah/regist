@@ -27,8 +27,8 @@
     <div class="mt-auto pt-6 border-t border-secondary-container/30 flex items-center gap-3 px-4">
         <img class="w-10 h-10 rounded-full object-cover" data-alt="A professional headshot of a female administrator with a friendly, confident expression, set against a blurred modern office background with soft teal accents. High-end lighting creates a polished, premium look consistent with a corporate dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2R3xW6LsltnyngBk-zHJwck5CzM11auEGtj7fnAydOxuH8bhE6jl9N89BZUDjJdJXuDDW7F29gng1z3AUqitjdrUtQvU1Y6_y7lf6n6ZR35VacE1vfxq8ftPxopP9njeQWhHCOCncODFH4dQAjynJ9DbCMcKrPsoceVzyJa6B5EPfy2jT4mu_X4252yb_xenzswkk286so1PkGBF1HF15luHnCDNk9ueqSFyTFJLN-bXA5fwrfMZSnw"/>
         <div class="overflow-hidden">
-            <p class="text-label-md font-bold text-on-surface truncate">Admin User</p>
-            <p class="text-body-sm text-on-surface-variant truncate">System Manager</p>
+            <p class="text-label-md font-bold text-on-surface truncate">admin</p>
+            <p class="text-body-sm text-on-surface-variant truncate">Administrator</p>
         </div>
     </div>
 </aside>
