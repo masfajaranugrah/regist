@@ -19,6 +19,7 @@ class Registration extends Model
         'tiktok_jernih',
         'ig_creative',
         'ig_jernih',
+        'google_review',
         'status',
     ];
 }

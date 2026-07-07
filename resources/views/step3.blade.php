@@ -42,17 +42,15 @@
 </head>
 <body class="bg-background text-on-surface font-body-lg min-h-screen flex flex-col">
 <!-- Top Navigation Bar -->
-<header class="w-full top-0 sticky bg-surface dark:bg-surface-dim z-50 flex items-center justify-between px-margin-mobile h-16 w-full">
+<header class="w-full top-0 sticky bg-surface/80 backdrop-blur-md flex items-center justify-between px-margin-mobile h-16 w-full z-50 border-b border-outline-variant/10">
     <div class="flex items-center gap-4">
-        <a href="/step-3" class="text-primary hover:bg-secondary-container/50 transition-colors p-2 rounded-full active:scale-95 duration-150 flex items-center justify-center">
-            <span class="material-symbols-outlined">arrow_back</span>
+        <a href="/step-3" class="active:scale-95 duration-150 hover:bg-secondary-container/50 transition-colors p-2 rounded-full flex items-center justify-center text-primary" aria-label="Go back">
+            <span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
         </a>
-        <h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Registration</h1>
+        <h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">Registration</h1>
     </div>
     <div class="flex items-center">
-        <div class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm">
-            Step 4 of 5
-        </div>
+        <span class="font-label-md text-on-surface-variant bg-surface-container-high px-3 py-1 rounded-full text-xs">Step 4 of 5</span>
     </div>
 </header>
 <main class="flex-grow px-margin-mobile pt-stack-md pb-stack-lg max-w-md mx-auto w-full">
@@ -71,20 +69,42 @@
         <h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-2">Ikuti kami untuk melanjutkan</h2>
         <p class="text-on-surface-variant text-body-sm">Dapatkan update terbaru dan konten eksklusif melalui media sosial kami.</p>
     </div>
-    <!-- Illustration / Visual Anchor -->
-    <div class="relative w-full aspect-square max-h-64 mb-stack-lg mx-auto rounded-xl overflow-hidden bg-secondary-container flex items-center justify-center">
-        <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-0 left-0 w-32 h-32 bg-primary-fixed blur-3xl rounded-full translate-x-[-20%] translate-y-[-20%]"></div>
-            <div class="absolute bottom-0 right-0 w-32 h-32 bg-secondary-fixed-dim blur-3xl rounded-full translate-x-[20%] translate-y-[20%]"></div>
-        </div>
-        <div class="z-10 text-center px-4">
-            <div class="bg-surface p-4 rounded-full shadow-lg inline-flex items-center justify-center mb-4 float-animation">
-                <span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1;">group_add</span>
-            </div>
-        </div>
+    <!-- Google Maps Visual Anchor -->
+    <div class="relative w-full h-64 mb-stack-lg mx-auto rounded-xl overflow-hidden bg-secondary-container shadow-md border border-outline-variant/30">
+        <iframe 
+            src="https://maps.google.com/maps?q=PT%20Jernih%20Multi%20Komunikasi,%20Klaten&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+            class="w-full h-full border-0" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
     </div>
     <!-- Social Buttons Grid -->
     <div class="space-y-stack-md mb-stack-lg">
+        <!-- Google Maps Rating -->
+        <div class="social-card w-full flex items-center justify-between p-4 bg-surface border-2 border-outline-variant rounded-xl group hover:border-primary cursor-pointer" id="btn-google-rating" onclick="triggerUpload('google-rating')">
+            <div class="flex items-center gap-4 flex-grow">
+                <div class="w-12 h-12 bg-gradient-to-br from-[#4285F4] via-[#34A853] to-[#FBBC05] text-white rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                    <span class="material-symbols-outlined text-white text-2xl" style="font-variation-settings: 'FILL' 1;">star_rate</span>
+                </div>
+                <div class="text-left flex-grow">
+                    <p class="font-label-md text-label-md text-on-surface">Beri Rating Bintang 5</p>
+                    <p class="text-on-surface-variant text-[12px]">Unggah screenshot ulasan Google Maps</p>
+                </div>
+            </div>
+            <!-- Buka Maps link badge -->
+            <a href="https://www.google.com/maps/search/?api=1&query=PT+Jernih+Multi+Komunikasi" target="_blank" onclick="event.stopPropagation();" class="flex items-center gap-1 bg-[#4285F4]/10 text-[#4285F4] hover:bg-[#4285F4]/20 px-3 py-1.5 rounded-full text-xs font-bold transition-colors mr-2">
+                <span>Buka</span>
+                <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+            </a>
+            <div class="flex flex-col items-center gap-1 ml-2 pl-4 border-l border-outline-variant hover:opacity-80 transition-opacity">
+                <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary/20 transition-all" id="upload-icon-google-rating">
+                    <span class="material-symbols-outlined text-[18px]">cloud_upload</span>
+                </div>
+                <span class="text-[10px] font-label-sm text-on-surface-variant" id="upload-label-google-rating">Unggah</span>
+                <input type="file" id="file-google-rating" class="hidden" accept="image/*" onchange="handleFileChange(event, 'google-rating')"/>
+            </div>
+        </div>
         <!-- TikTok 1 -->
         <div class="social-card w-full flex items-center justify-between p-4 bg-surface border-2 border-outline-variant rounded-xl group hover:border-primary cursor-pointer" id="btn-tiktok-1" onclick="triggerUpload('tiktok-1')">
             <div class="flex items-center gap-4 flex-grow">
@@ -190,25 +210,14 @@
         <span class="material-symbols-outlined text-[18px]">chevron_right</span>
     </button>
 </footer>
-<!-- Padding to prevent fixed bottom nav from covering the footer button -->
-<div class="h-24 w-full"></div>
-<!-- Help / Support Bottom Nav -->
-<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface dark:bg-surface-dim shadow-[0px_-2px_10px_rgba(13,148,136,0.05)] md:hidden">
-    <button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant p-2 hover:bg-secondary-fixed-dim/20 transition-all active:scale-95 duration-200">
-        <span class="material-symbols-outlined">help_outline</span>
-        <span class="font-label-sm text-label-sm">Help</span>
-    </button>
-    <button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant p-2 hover:bg-secondary-fixed-dim/20 transition-all active:scale-95 duration-200">
-        <span class="material-symbols-outlined">contact_support</span>
-        <span class="font-label-sm text-label-sm">Support</span>
-    </button>
-</nav>
+
 <script>
     const status = {
         'tiktok-1': false,
         'tiktok-2': false,
         'instagram-1': false,
-        'instagram-2': false
+        'instagram-2': false,
+        'google-rating': false
     };
 
     function triggerUpload(platform) {
@@ -279,7 +288,7 @@
 
     function updateFinishButton() {
         const finishBtn = document.getElementById('finish-btn');
-        if (status['tiktok-1'] && status['tiktok-2'] && status['instagram-1'] && status['instagram-2']) {
+        if (status['tiktok-1'] && status['tiktok-2'] && status['instagram-1'] && status['instagram-2'] && status['google-rating']) {
             finishBtn.disabled = false;
             finishBtn.classList.remove('bg-outline-variant', 'cursor-not-allowed');
             finishBtn.classList.add('bg-primary', 'shadow-lg', 'active:scale-95');

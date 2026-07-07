@@ -106,17 +106,7 @@
         </a>
     </div>
 </main>
-<!-- Contextual Bottom Nav (Limited for Success Screen) -->
-<footer class="fixed bottom-0 left-0 w-full bg-surface/80 backdrop-blur-md flex justify-around items-center px-4 py-4 pb-safe border-t border-outline-variant/10">
-    <button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-secondary-fixed-dim/20 rounded-xl transition-all">
-        <span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
-        <span class="font-label-sm text-label-sm mt-1">Help</span>
-    </button>
-    <button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-secondary-fixed-dim/20 rounded-xl transition-all">
-        <span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
-        <span class="font-label-sm text-label-sm mt-1">Support</span>
-    </button>
-</footer>
+
 <!-- Confetti Script -->
 <script>
     function createConfetti() {

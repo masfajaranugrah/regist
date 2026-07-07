@@ -151,17 +151,7 @@ Terakhir diperbarui: 07 Juli 2026
                 <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
             </button>
 
-            <!-- Help/Support Links (BottomNavBar predicted component mapping) -->
-            <footer class="flex justify-center items-center gap-8 pt-2">
-                <button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-secondary-fixed-dim/20 transition-all rounded-lg active:scale-95 duration-200">
-                    <span class="material-symbols-outlined text-xl" data-icon="help_outline">help_outline</span>
-                    <span class="text-label-sm font-label-sm mt-1">Help</span>
-                </button>
-                <button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-secondary-fixed-dim/20 transition-all rounded-lg active:scale-95 duration-200">
-                    <span class="material-symbols-outlined text-xl" data-icon="contact_support">contact_support</span>
-                    <span class="text-label-sm font-label-sm mt-1">Support</span>
-                </button>
-            </footer>
+
         </div>
     </div>
 

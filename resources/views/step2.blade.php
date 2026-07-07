@@ -45,18 +45,16 @@
     </style>
 </head>
 <body class="bg-background text-on-surface min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
-<!-- TopAppBar from JSON -->
-<header class="w-full top-0 sticky z-40 bg-surface dark:bg-surface-dim flex items-center justify-between px-margin-mobile h-16 w-full">
+<!-- Top Navigation Bar -->
+<header class="w-full top-0 sticky bg-surface/80 backdrop-blur-md flex items-center justify-between px-margin-mobile h-16 w-full z-50 border-b border-outline-variant/10">
     <div class="flex items-center gap-4">
-        <a href="/step-2" class="flex items-center justify-center p-2 rounded-full hover:bg-secondary-container/50 transition-colors active:scale-95 duration-150 text-primary dark:text-primary-fixed">
+        <a href="/step-2" class="active:scale-95 duration-150 hover:bg-secondary-container/50 transition-colors p-2 rounded-full flex items-center justify-center text-primary" aria-label="Go back">
             <span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
         </a>
-        <h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Registration</h1>
+        <h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">Registration</h1>
     </div>
     <div class="flex items-center">
-        <div class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm">
-            Step 3 of 5
-        </div>
+        <span class="font-label-md text-on-surface-variant bg-surface-container-high px-3 py-1 rounded-full text-xs">Step 3 of 5</span>
     </div>
 </header>
 <main class="flex-grow flex flex-col relative ambient-glow px-margin-mobile pb-32 max-w-md mx-auto w-full">
@@ -105,14 +103,7 @@
                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-outline/30 material-symbols-outlined" data-icon="phone">phone</span>
             </div>
         </div>
-        <!-- Full Address -->
-        <div class="space-y-stack-sm">
-            <label class="font-label-md text-label-md text-on-surface-variant" for="address">Alamat Lengkap</label>
-            <div class="relative group">
-                <textarea class="w-full p-4 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-lg focus:ring-0 focus:border-primary transition-all placeholder:text-outline/50 outline-none resize-none" id="address" name="address" placeholder="Jl. Raya No. 123, Kelurahan, Kecamatan, Kota" rows="4"></textarea>
-                <span class="absolute right-4 top-4 text-outline/30 material-symbols-outlined" data-icon="location_on">location_on</span>
-            </div>
-        </div>
+
     </form>
     <!-- Subtle Decorative Element -->
     <div class="mt-stack-lg p-6 bg-secondary-container/30 rounded-xl border border-secondary-container/50 flex gap-4 items-start">
@@ -134,21 +125,7 @@
         </button>
     </div>
 </div>
-<!-- BottomNavBar from JSON (Filtering: This is a task-focused sub-page, but showing Help/Support as per JSON intent) -->
-<!-- Suppression Logic: Suppressing standard nav to prioritize transactional flow, but keeping buttons for context -->
-<footer class="fixed bottom-0 left-0 w-full z-20 flex justify-around items-center px-4 py-2 pb-safe bg-surface/50 pointer-events-none">
-    <div class="hidden">
-        <!-- JSON Anchors: Help, Support -->
-        <div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant p-2">
-            <span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
-            <span class="font-label-sm text-label-sm">Help</span>
-        </div>
-        <div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant p-2">
-            <span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
-            <span class="font-label-sm text-label-sm">Support</span>
-        </div>
-    </div>
-</footer>
+
 <script>
     // Micro-interactions
     const inputs = document.querySelectorAll('input, textarea');

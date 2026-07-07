@@ -49,7 +49,7 @@ class RegistrationController extends \Illuminate\Routing\Controller
             'full_name' => 'required|string|max:255',
             'id_number' => 'required|string|max:50',
             'phone_number' => 'required|string|max:50',
-            'address' => 'required|string',
+            'address' => 'nullable|string',
         ]);
 
         $regId = session('registration_id');
@@ -88,7 +88,7 @@ class RegistrationController extends \Illuminate\Routing\Controller
     {
         $request->validate([
             'file' => 'required|image|max:10240', // Max 10MB
-            'platform' => 'required|string|in:tiktok-1,tiktok-2,instagram-1,instagram-2',
+            'platform' => 'required|string|in:tiktok-1,tiktok-2,instagram-1,instagram-2,google-rating',
         ]);
 
         $regId = session('registration_id');
@@ -115,6 +115,7 @@ class RegistrationController extends \Illuminate\Routing\Controller
             'tiktok-2' => 'tiktok_jernih',
             'instagram-1' => 'ig_creative',
             'instagram-2' => 'ig_jernih',
+            'google-rating' => 'google_review',
         ];
 
         $column = $columnMap[$request->platform];
@@ -259,6 +260,7 @@ class RegistrationController extends \Illuminate\Routing\Controller
             fwrite($file, '<th>TikTok Jernih</th>');
             fwrite($file, '<th>IG Creative</th>');
             fwrite($file, '<th>IG Jernih</th>');
+            fwrite($file, '<th>Google Review</th>');
             fwrite($file, '<th>Status</th>');
             fwrite($file, '<th>Registered At</th>');
             fwrite($file, '</tr>');
@@ -269,6 +271,7 @@ class RegistrationController extends \Illuminate\Routing\Controller
                 $tiktok_jernih = $reg->tiktok_jernih ? asset($reg->tiktok_jernih) : '-';
                 $ig_creative = $reg->ig_creative ? asset($reg->ig_creative) : '-';
                 $ig_jernih = $reg->ig_jernih ? asset($reg->ig_jernih) : '-';
+                $google_review = $reg->google_review ? asset($reg->google_review) : '-';
                 $date = $reg->created_at ? $reg->created_at->toDateTimeString() : '-';
 
                 fwrite($file, '<tr>');
@@ -283,6 +286,7 @@ class RegistrationController extends \Illuminate\Routing\Controller
                 fwrite($file, '<td>' . htmlspecialchars($tiktok_jernih) . '</td>');
                 fwrite($file, '<td>' . htmlspecialchars($ig_creative) . '</td>');
                 fwrite($file, '<td>' . htmlspecialchars($ig_jernih) . '</td>');
+                fwrite($file, '<td>' . htmlspecialchars($google_review) . '</td>');
                 fwrite($file, '<td>' . htmlspecialchars($reg->status) . '</td>');
                 fwrite($file, '<td>' . htmlspecialchars($date) . '</td>');
                 fwrite($file, '</tr>');
@@ -303,7 +307,7 @@ class RegistrationController extends \Illuminate\Routing\Controller
         $registration = Registration::find($id);
         if ($registration) {
             // Delete associated proof files if they exist in public/uploads
-            $fields = ['tiktok_creative', 'tiktok_jernih', 'ig_creative', 'ig_jernih'];
+            $fields = ['tiktok_creative', 'tiktok_jernih', 'ig_creative', 'ig_jernih', 'google_review'];
             foreach ($fields as $field) {
                 if ($registration->$field) {
                     $filePath = public_path($registration->$field);

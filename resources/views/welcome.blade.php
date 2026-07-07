@@ -108,23 +108,7 @@
         <span class="font-label-sm text-on-surface-variant/70">Data Anda dilindungi enkripsi industri</span>
     </div>
 </main>
-<!-- Bottom Utility Bar -->
-<footer class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 py-3 pb-8 bg-surface/90 backdrop-blur-md border-t border-outline-variant/10">
-    <button class="flex flex-col items-center justify-center text-on-surface-variant group">
-        <div class="p-2 rounded-xl group-hover:bg-primary/5 transition-colors">
-            <span class="material-symbols-outlined mb-0.5 group-hover:text-primary transition-colors" data-icon="help_outline">help_outline</span>
-        </div>
-        <span class="font-label-sm text-[10px] uppercase tracking-wider font-bold">Help</span>
-    </button>
-    <button class="flex flex-col items-center justify-center text-on-surface-variant group">
-        <div class="p-2 rounded-xl group-hover:bg-primary/5 transition-colors">
-            <span class="material-symbols-outlined mb-0.5 group-hover:text-primary transition-colors" data-icon="contact_support">contact_support</span>
-        </div>
-        <span class="font-label-sm text-[10px] uppercase tracking-wider font-bold">Support</span>
-    </button>
-</footer>
-<!-- Padding for footer -->
-<div class="h-24 w-full"></div>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         // Subtle entrance animations

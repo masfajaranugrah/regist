@@ -285,8 +285,8 @@
                 
                 <!-- Social Media Proof Section -->
                 <div class="border-t border-secondary-container/50 pt-4">
-                    <h5 class="font-bold text-primary mb-3">Bukti Upload Media Sosial</h5>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <h5 class="font-bold text-primary mb-3">Bukti Upload Media Sosial & Ulasan</h5>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                         <!-- TikTok Creative -->
                         <div class="flex flex-col items-center p-3 bg-surface-container-low rounded-xl border border-secondary-container/50 text-center">
                             <span class="text-[11px] font-bold text-on-surface-variant mb-2">TikTok Creative</span>
@@ -312,6 +312,13 @@
                         <div class="flex flex-col items-center p-3 bg-surface-container-low rounded-xl border border-secondary-container/50 text-center">
                             <span class="text-[11px] font-bold text-on-surface-variant mb-2">IG Jernih</span>
                             <div id="proofIgJernih" class="w-full aspect-square bg-surface-container-highest rounded-lg overflow-hidden flex items-center justify-center border border-outline-variant/35">
+                                <span class="text-xs text-outline/60">Tidak ada</span>
+                            </div>
+                        </div>
+                        <!-- Google Review -->
+                        <div class="flex flex-col items-center p-3 bg-surface-container-low rounded-xl border border-secondary-container/50 text-center">
+                            <span class="text-[11px] font-bold text-on-surface-variant mb-2">Google Review</span>
+                            <div id="proofGoogleReview" class="w-full aspect-square bg-surface-container-highest rounded-lg overflow-hidden flex items-center justify-center border border-outline-variant/35">
                                 <span class="text-xs text-outline/60">Tidak ada</span>
                             </div>
                         </div>
@@ -361,6 +368,7 @@
             renderProof('proofTiktokJernih', reg.tiktok_jernih);
             renderProof('proofIgCreative', reg.ig_creative);
             renderProof('proofIgJernih', reg.ig_jernih);
+            renderProof('proofGoogleReview', reg.google_review);
 
             const modal = document.getElementById('detailsModal');
             modal.classList.remove('hidden');
