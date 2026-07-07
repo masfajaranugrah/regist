@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Registration Successful</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
     <style>
@@ -38,96 +38,7 @@
             animation: check-draw 1.2s cubic-bezier(0.65, 0, 0.45, 1) forwards;
         }
     </style>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-secondary-fixed-variant": "#3d4947",
-                        "on-primary-fixed-variant": "#005049",
-                        "secondary-fixed": "#d8e5e2",
-                        "primary-container": "#008378",
-                        "on-surface-variant": "#3d4947",
-                        "surface-container-high": "#dee8ff",
-                        "secondary": "#55615f",
-                        "surface-bright": "#f9f9ff",
-                        "error-container": "#ffdad6",
-                        "inverse-primary": "#6bd8cb",
-                        "on-primary-container": "#f4fffc",
-                        "on-background": "#111c2d",
-                        "outline": "#6d7a77",
-                        "tertiary-container": "#66768d",
-                        "tertiary-fixed-dim": "#b7c8e1",
-                        "primary": "#00685f",
-                        "on-tertiary-fixed-variant": "#38485d",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-highest": "#d8e3fb",
-                        "secondary-container": "#d8e5e2",
-                        "secondary-fixed-dim": "#bcc9c6",
-                        "on-primary-fixed": "#00201d",
-                        "on-surface": "#111c2d",
-                        "surface-container-lowest": "#ffffff",
-                        "surface": "#f9f9ff",
-                        "on-error-container": "#93000a",
-                        "tertiary-fixed": "#d3e4fe",
-                        "surface-container": "#e7eeff",
-                        "surface-container-low": "#f0f3ff",
-                        "surface-dim": "#cfdaf2",
-                        "on-error": "#ffffff",
-                        "on-tertiary-fixed": "#0b1c30",
-                        "on-secondary-fixed": "#121e1c",
-                        "inverse-surface": "#263143",
-                        "on-tertiary-container": "#fdfcff",
-                        "surface-variant": "#d8e3fb",
-                        "background": "#f9f9ff",
-                        "surface-tint": "#006a61",
-                        "outline-variant": "#bcc9c6",
-                        "on-secondary": "#ffffff",
-                        "tertiary": "#4d5d73",
-                        "primary-fixed": "#89f5e7",
-                        "error": "#ba1a1a",
-                        "primary-fixed-dim": "#6bd8cb",
-                        "on-primary": "#ffffff",
-                        "on-secondary-container": "#5b6765",
-                        "inverse-on-surface": "#ecf1ff"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "section-gap": "48px",
-                        "gutter-md": "16px",
-                        "margin-mobile": "24px",
-                        "stack-md": "16px",
-                        "stack-lg": "32px",
-                        "stack-sm": "8px"
-                    },
-                    "fontFamily": {
-                        "headline-lg-mobile": ["Plus Jakarta Sans"],
-                        "label-md": ["Plus Jakarta Sans"],
-                        "body-lg": ["Plus Jakarta Sans"],
-                        "headline-md": ["Plus Jakarta Sans"],
-                        "headline-lg": ["Plus Jakarta Sans"],
-                        "body-sm": ["Plus Jakarta Sans"],
-                        "label-sm": ["Plus Jakarta Sans"]
-                    },
-                    "fontSize": {
-                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
-                        "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
-                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
-                        "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
-                    }
-                },
-            },
-        }
-    </script>
+
     <style>
         body {
           min-height: max(884px, 100dvh);
